@@ -1,0 +1,19 @@
+# Ignore arquivos temporários e de build
+
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build do .NET
+bin/
+obj/
+
+# Node.js / Frontend
+node_modules/
+dist/
+
+# Outros arquivos inúteis
+*.log
+.DS_Store
+Thumbs.db

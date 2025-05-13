@@ -1,0 +1,48 @@
+PESQUISA DE CUSTO-BENEFICIO (Chat GPT)
+
+Para calcular o custo-benefício entre usar o **Google Firebase** e um **servidor próprio**, precisamos considerar alguns fatores:
+
+### **1. Custos do Firebase**
+O Firebase tem um plano gratuito (Spark), mas para 500 pessoas pode ser necessário o plano pago (Blaze). Os principais custos no Blaze incluem:
+
+- **Autenticação**: Gratuita até 10.000 verificações por mês.
+- **Firestore (Banco de Dados NoSQL)**:
+  - Grátis até 50.000 leituras, 20.000 gravações e 10.000 exclusões por mês.
+  - Após isso, custo de aproximadamente **$0.06 por 100.000 leituras**.
+- **Hosting**: Primeiros 1GB grátis, depois **$0.026 por GB**.
+- **Funções Cloud** (se necessário para notificações automáticas): **$0.40 por milhão de execuções**.
+- **Storage (para imagens/arquivos)**: Primeiros 5GB grátis, depois **$0.026 por GB**.
+
+💰 **Estimativa Firebase Blaze:**  
+Para 500 usuários acessando diariamente, com notificações, banco e algumas funções rodando, o custo pode variar entre **$10 e $50 por mês**, dependendo do uso.
+
+---
+
+### **2. Custos de um Servidor Próprio**
+Rodar um servidor próprio envolve:
+
+1. **Servidor VPS ou Cloud**:
+   - VPS básico (2 vCPU, 4GB RAM) no DigitalOcean ou AWS Lightsail: **~$10 a $20/mês**.
+   - VPS melhor (4 vCPU, 8GB RAM) para escalabilidade: **~$30 a $50/mês**.
+
+2. **Banco de Dados**:
+   - PostgreSQL/MySQL em VPS (incluso no plano) ou um serviço gerenciado (RDS, Atlas): **$10 a $30/mês**.
+
+3. **Manutenção e Segurança**:
+   - Atualizações, backups e monitoramento: **~$10/mês** (ou tempo de um DevOps).
+
+4. **Domínio e SSL**:
+   - Domínio **~$10/ano**.
+   - SSL grátis com Let's Encrypt ou pago (~$10 a $50/ano).
+
+💰 **Estimativa Servidor Próprio:**  
+Custos iniciais podem ficar entre **$20 e $60/mês**, sem contar trabalho técnico.
+
+---
+
+### **Conclusão**
+- **Se for um app simples**, com poucas personalizações e sem necessidade de servidores complexos, o **Firebase é mais barato e fácil de gerenciar**.
+- **Se precisar de controle total e personalização**, um **servidor próprio pode ser melhor**, mas exige mais trabalho.
+
+🔥 **Recomendação**: Para um projeto desse porte, **Firebase Blaze deve sair mais barato e exigir menos manutenção**, tornando-se a melhor escolha a curto e médio prazo.
+

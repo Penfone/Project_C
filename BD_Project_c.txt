@@ -1,0 +1,92 @@
+-- Tabela de usuários
+CREATE TABLE Usuarios (
+    UsuarioId       INT             NOT NULL IDENTITY(1,1),
+    Email           VARCHAR(100)    NOT NULL,
+    Nome            VARCHAR(50)     NOT NULL,
+    Sobrenome       VARCHAR(150)    NOT NULL,
+    Ativo           BIT             NOT NULL DEFAULT(1),
+    NivelAcesso     TINYINT         NOT NULL DEFAULT(0),
+    Telefone        VARCHAR(20)     NULL,
+    DataNascimento  DATE            NULL,
+    DataCadastro    DATETIME        NOT NULL DEFAULT GETDATE(),
+    FotoUrl         VARCHAR(200)    NULL,
+    PRIMARY KEY (UsuarioId)
+);
+GO
+
+-- Tabela de ministérios
+CREATE TABLE Ministerios (
+    MinisterioId        INT             NOT NULL IDENTITY(1,1),
+    Nome                VARCHAR(100)    NOT NULL,
+    Descricao           VARCHAR(200)    NULL,
+    LiderId             INT             NOT NULL,
+    DataCriacao         DATETIME        NOT NULL DEFAULT GETDATE(),
+    UltimaAtualizacao   DATETIME        NOT NULL DEFAULT GETDATE(),
+    Ativo               BIT             NOT NULL DEFAULT(1),
+    PRIMARY KEY (MinisterioId),
+    FOREIGN KEY (LiderId) REFERENCES Usuarios(UsuarioId) ON DELETE CASCADE
+);
+GO
+
+-- Tabela de vínculo de membros
+CREATE TABLE Membros (
+    MembroId          INT     NOT NULL IDENTITY(1,1),
+    UsuarioId         INT     NOT NULL,
+    MinisterioId      INT     NOT NULL,
+    DataEntrada       DATE    NOT NULL DEFAULT GETDATE(),
+    DataSaida         DATE    NULL,
+    PapelNoMinisterio VARCHAR(50) NULL,
+    PRIMARY KEY (MembroId),
+    FOREIGN KEY (UsuarioId)      REFERENCES Usuarios(UsuarioId)      ON DELETE CASCADE,
+    FOREIGN KEY (MinisterioId)   REFERENCES Ministerios(MinisterioId)
+);
+GO
+
+-- Tabela de papéis genéricos
+CREATE TABLE Papeis (
+    PapelId     INT             NOT NULL IDENTITY(1,1),
+    Nome        VARCHAR(50)     NOT NULL UNIQUE,
+    Descricao   VARCHAR(150)    NULL,
+    PRIMARY KEY (PapelId)
+);
+GO
+
+-- Tabela de papéis atribuídos por ministério
+CREATE TABLE UsuarioPapeis (
+    UsuarioPapelId    INT         NOT NULL IDENTITY(1,1),
+    UsuarioId         INT         NOT NULL,
+    MinisterioId      INT         NOT NULL,
+    PapelId           INT         NOT NULL,
+    AtribuidoEm       DATETIME    NOT NULL DEFAULT GETDATE(),
+    PRIMARY KEY (UsuarioPapelId),
+    FOREIGN KEY (UsuarioId)       REFERENCES Usuarios(UsuarioId),
+    FOREIGN KEY (MinisterioId)    REFERENCES Ministerios(MinisterioId) ON DELETE CASCADE,
+    FOREIGN KEY (PapelId)         REFERENCES Papeis(PapelId)         
+);
+GO
+
+-- Tabela de configurações customizadas por ministério
+CREATE TABLE ConfiguracoesMinisterio (
+    ConfiguracaoId   INT         NOT NULL IDENTITY(1,1),
+    MinisterioId     INT         NOT NULL,
+    Chave            VARCHAR(100) NOT NULL,
+    Valor            VARCHAR(500) NOT NULL,
+    PRIMARY KEY (ConfiguracaoId),
+    FOREIGN KEY (MinisterioId) REFERENCES Ministerios(MinisterioId) ON DELETE CASCADE,
+    UNIQUE (MinisterioId, Chave)
+);
+GO
+
+-- Tabela de logs de auditoria
+CREATE TABLE LogsAuditoria (
+    LogAuditoriaId   INT          NOT NULL IDENTITY(1,1),
+    NomeTabela       VARCHAR(100) NOT NULL,
+    RegistroId       INT          NOT NULL,
+    UsuarioId        INT          NULL,
+    Acao             VARCHAR(20)  NOT NULL,      -- 'INSERT','UPDATE','DELETE'
+    DataAlteracao    DATETIME     NOT NULL DEFAULT GETDATE(),
+    Detalhes         VARCHAR(MAX) NULL,
+    PRIMARY KEY (LogAuditoriaId),
+    FOREIGN KEY (UsuarioId) REFERENCES Usuarios(UsuarioId) ON DELETE SET NULL
+);
+GO

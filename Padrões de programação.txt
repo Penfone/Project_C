@@ -1,0 +1,3 @@
+1- Pastas e arquivos relacionados de criação de tela devem terminar em _sc.dart
+2- Pastas e arquivos relacionados de criação de widgets devem terminar em _wid.dart
+3- Pastas e arquivos relacionados de criação de controllers devem terminar em _ct.dart

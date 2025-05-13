@@ -1,0 +1,6 @@
+#Emulador(Android)
+cd D:\Projects\Projeto_Comunicar\project_c
+flutter emulators --launch Medium_Phone_API_24
+flutter run
+
+#Celular(Android)
