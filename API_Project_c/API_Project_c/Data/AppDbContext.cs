@@ -9,8 +9,8 @@ public partial class AppDbContext : DbContext
 {
 
     //Scaffold commands
-    //cd D:\Projects\Projeto_Comunicar\API_Project_c\API_Project_c
-    //dotnet ef dbcontext scaffold "Server=HIRO;Database=IBVTeste;User Id=Proj_C;Password=ibv2025;TrustServerCertificate=True;" Microsoft.EntityFrameworkCore.SqlServer --output-dir ScaffoldTemp/Models --context-dir ScaffoldTemp/Data --context TempDbContext --use-database-names --no-pluralize --table suatabela
+   
+    
 
     public AppDbContext()
     {
